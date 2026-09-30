@@ -28,16 +28,16 @@ jobs:
 	  mkdir -p public
           npm run grab -- \
             -c my_channels.xml \
-            -o public/epg.xml \
+            -o docs/epg.xml \
             -d 2000 \
             --maxConnections 1
 
       - name: Compress EPG File to .gz
-        run: gzip -c public/epg.xml > public/epg.xml.gz
+        run: gzip -c docs/epg.xml > docs/epg.xml.gz
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add my_channels.xml public/
+          git add my_channels.xml docs/
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update Custom EPG [skip ci]" && git push)
