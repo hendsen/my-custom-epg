@@ -2,8 +2,8 @@ name: Generate Custom EPG
 
 on:
   schedule:
-    # Run every 07:00 WIB (23:00 UTC)
-    - cron: '0 23 * * *'
+    # Run every 07:00 WIB (00:00 UTC)
+    - cron: '0 0 * * *'
   workflow_dispatch: # Allow manual execution via GitHub Actions button
 
 jobs:
@@ -25,18 +25,19 @@ jobs:
 
       - name: Run EPG Grabber
         run: |
+	  mkdir -p public
           npm run grab -- \
             -c my_channels.xml \
-            -o epg.xml \
+            -o public/epg.xml \
             -d 2000 \
             --maxConnections 1
 
       - name: Compress EPG File to .gz
-        run: gzip -c epg.xml > epg.xml.gz
+        run: gzip -c public/epg.xml > public/epg.xml.gz
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add my_channels.xml epg.xml epg.xml.gz
+          git add my_channels.xml public/
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update Custom EPG [skip ci]" && git push)
