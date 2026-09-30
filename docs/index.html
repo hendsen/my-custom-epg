@@ -89,13 +89,13 @@
     
     <label style="font-size: 0.85rem; font-weight: 600; color: #c9d1d9;">Compressed EPG (.gz) — <i>Recommended</i>:</label>
     <div class="url-box" id="url-gz">Loading URL...</div>
-    <a href="guide.xml.gz" class="btn">Download .xml.gz</a>
+    <a href="epg.xml.gz" class="btn">Download .xml.gz</a>
     <button onclick="copyToClipboard('url-gz')" class="btn btn-secondary">Copy Link GZ</button>
 
     <div style="margin-top: 20px;">
       <label style="font-size: 0.85rem; font-weight: 600; color: #c9d1d9;">URL Plain XML:</label>
       <div class="url-box" id="url-xml">Loading URL...</div>
-      <a href="guide.xml" class="btn btn-secondary">Download .xml</a>
+      <a href="epg.xml" class="btn btn-secondary">Download .xml</a>
       <button onclick="copyToClipboard('url-xml')" class="btn btn-secondary">Copy Link XML</button>
     </div>
 
@@ -106,8 +106,8 @@
 
   <script>
     const baseUrl = window.location.href.split('?')[0].replace(/\/$/, "");
-    document.getElementById('url-gz').innerText = baseUrl + '/guide.xml.gz';
-    document.getElementById('url-xml').innerText = baseUrl + '/guide.xml';
+    document.getElementById('url-gz').innerText = baseUrl + '/epg.xml.gz';
+    document.getElementById('url-xml').innerText = baseUrl + '/epg.xml';
 
     function copyToClipboard(elementId) {
       const text = document.getElementById(elementId).innerText;
